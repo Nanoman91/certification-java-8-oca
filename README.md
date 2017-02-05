@@ -36,6 +36,8 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 		x++;
 	```	
 	Seule l'instruction `y--` est dans le block `while`
+	
+**[Back to top](#sommaire)**
 
 ## Chapter 1 JAVA Building Blocks
 
@@ -94,6 +96,8 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 - **Exam essentials p.87 (41)**
 
 ----------------
+
+**[Back to top](#sommaire)**
 
 ## Chapter 2 Operators and Statements
 
@@ -161,6 +165,8 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 - **Exam essentials p.138 (92)**
 
 ----------------
+
+**[Back to top](#sommaire)**
 
 ## Chapter 3 Core Java APIs
 
@@ -275,6 +281,8 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 
 ----------------
 
+**[Back to top](#sommaire)**
+
 ## Chapter 4 Methods and Encapsulation
 
 - Elements required for method declaration : `void` (type), name, `parameter` (parenthesis) but **can be empty**, `method body` (brackets) but **can be empty**.
@@ -365,6 +373,12 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 - Calling of methods has this order : exact matches are used first, followed by wider 
 primitives, followed by autoboxing, followed by varargs.
 
+----------------
+
+----------------
+
+**[Back to top](#sommaire)**
+
 ## Chapter 5 Class Design
 
 - Java disallow multiple inheritance.
@@ -440,3 +454,8 @@ primitives, followed by autoboxing, followed by varargs.
 	2. The type of the reference to the object determines which methods and variables are accessible to the Java program.
 
 ## Chapter 6 Exceptions
+
+----------------
+----------------
+
+**[Back to top](#sommaire)**
