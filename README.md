@@ -1,26 +1,33 @@
-#Java 8 OCA
+# Certification Oracle Java 8 - Niveau OCA
 
-Ce document à pour but de regrouper les notes et les conseils concernant la certification Oracle Java 8 niveau OCA.  
+Ce document a pour but de regrouper les notes et les conseils concernant la certification Oracle Java 8 niveau OCA.  
 Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified Associate Java SE 8 Programmer I Study Guide**.
 
-##Sommaire
+**Le document est en cours d'élaboration, les chapitres 4, 5 et 6 ne sont pas encore terminés.**
+
+## Sommaire
 
 1. [Conseils pour l'examen](#conseils-pour-lexamen)
 2. [Chapitre 1 - Java building blocks](#chapter-1-java-building-blocks)
+3. [Chapitre 2 - Operators and Statements](chapter-2-operators-and-statements)
+4. [Chapitre 3 - Core Java APIs](chapter-3-core-java-apis)
+5. [Chapitre 4 - Methods and Encapsulation](chapter-4-methods-and-encapsulation)
+6. [Chapitre 5 - Class Design](chapter-5-class-design)
+7. [Chapitre 6 - Exceptions](chapter-6-exceptions)
 
-##Conseils pour l’examen
+## Conseils pour l’examen
 
 - Bien prendre le temps de lire chaque question :
 	- attention au vocabulaire employé, par exemple la déclaration des variables avec le mot local ou de classe
-- A partir du moment où il y a une question avec une réponse liée qui indique un problème de compilation, il faut bien regarder ces différents éléments :
+- À partir du moment où il y a une question avec une réponse qui indique un problème de compilation, il faut bien être attentif à ces différents éléments :
 	- la syntaxe : 
-		- est-ce que les points virgules sont présents ?
-		- est-ce que les blocs de code sont bien ouverts et fermés, attention aux parenthèses et aux accolades
+		- est-ce que tous les points virgules sont présents ?
+		- est-ce que les blocs de code sont bien ouverts et fermés; attention aux parenthèses et aux accolades
 		- est-ce que les éléments sont correctement écrits ?
 		- vérifier le typage et la déclaration des éléments
 	- les imports :
 		- si le code ne commence pas à la ligne 1 on considère les imports comme valident
-		- si il commence à la ligne 1 il faut vérifier que tout est correct
+		- si il commence à la ligne 1, il faut vérifier que tout est correct
 - Attention aux éléments de code écrits sur une seule ligne
 - Attention aux structures de code qui ne nécessitent pas forcément l'ouverture et la fermeture d'accolades. Souvent l'instruction suivante celle qui est dans le bloc est indenté pour faire croire qu'elle est dans même le bloc de code alors qu'elle ne l'est pas :
 	
@@ -32,8 +39,6 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 
 ## Chapter 1 JAVA Building Blocks
 
-Important concepts : page 34; 
-
 - **WARNING :**
 
 	```java
@@ -41,12 +46,12 @@ Important concepts : page 34;
  	* /* ferret */ 
 	*/
 	``` 
-That code does not compile because the first `*/` is interpreted as the end of the bloc comment and the second `*/` does not have a start.
+	That code does not compile because the first `*/` is interpreted as the end of the bloc comment and the second `*/` does not have a start.
 - The scope of a class is not essential. If nothing is precised, it is `public`.
 - To compile a class `javac Zoo.java ` (extension `.java` needed) and to execute it `java Zoo` (`main()` method needed). 
 - Rules of java file :
-	- Each file can contain only one class.	- The filename must match the class name, including case, and have a `.java` extension.
-- use `L` instead of `l` for long declaration is appreciated
+	- Each file can contain only one public class.	- The filename must match the class name, including case, and have a `.java` extension.
+- using `L` instead of `l` for long declaration is appreciated
 - **WARNING :** be careful with numbers declaration especially these one 
 	
 	```java
@@ -79,13 +84,18 @@ That code does not compile because the first `*/` is interpreted as the end of t
 |  Field declarations |      int value;     |    No    |    Anywhere inside a class    |
 | Method declarations |    void method()    |    No    |    Anywhere inside a class    |
 
-- Lors des imports avec *, le compilateur ne récupèrera que les classes dont il a besoin.
+- When there  are imports with wildcard `*`, the compiler will get only the classes he needs.
 - If there is more than one class in a file, only one **must** be public. The others inner class don’t have scope.
 - Advice for question about garbage collector and references : draw on a paper the situation with squares and arrows, it will be easier.
 - `finalize()` call could run zero or one time.
-- **SUMMARY p.86**
 
-##Chapter 2 - Operators and Statements
+----------------
+- **SUMMARY p.86 (40)**
+- **Exam essentials p.87 (41)**
+
+----------------
+
+## Chapter 2 Operators and Statements
 
 - Arithmetic have the same precedence than in mathematics. In this operation `int x = 2 * 5 + 3 * 4 - 8;` the multiplicative operators will be evaluated in first.
 - The modulus operator `%` gives the remainder of the operation. `11%3` gives 2.
@@ -145,11 +155,16 @@ That code does not compile because the first `*/` is interpreted as the end of t
 	- String	- enum values
 - Important quote : **There is no requirement that the case or default statements be in a particular order, unless you are going to have pathways that reach multiple sections of the switch block in a single execution.** See p. 121 for examples.
 - In a for declaration, the variable initialized must be of the same type. 
-- **Summary p.138**
 
-##Chapter 3
+--------------
+- **Summary p.138 (92)**
+- **Exam essentials p.138 (92)**
 
-###String
+----------------
+
+## Chapter 3 Core Java APIs
+
+### String
 
 - Be careful with `String` objects, they are immutable. Once it is created, it is not allowed to change
 	
@@ -166,7 +181,7 @@ That code does not compile because the first `*/` is interpreted as the end of t
 	System.out.println(string.substring(3, 4)); // m
 	```
 
-###StringBuilder
+### StringBuilder
 
 - `StringBuilder` is mutable and be careful because it returns a reference of itself
 	
@@ -210,7 +225,7 @@ That code does not compile because the first `*/` is interpreted as the end of t
 	System.out.println(x.equals(z)); // true because it uses equals method
 	```
 
-###Array and ArrayList
+### Arrays and ArrayList
 
 - Be careful with array declaration	
 
@@ -230,7 +245,7 @@ That code does not compile because the first `*/` is interpreted as the end of t
 - Since java 7, diamonds operators `<>` are not required for `ArrayList` declaration
 - When you create an `ArrayList` from an array the `ArrayList` the two elements are linked and the size of the `ArrayList` is fixed. So you cannot remove an element of the `ArrayList`, and when you change an element of one it changes in the other
 
-###Wrapper classes and auto boxing
+### Wrapper classes and auto boxing
 
 - Be careful with this example, and it is the same for the other primitive except the `Character` that doesn't have these methods
 
@@ -248,12 +263,19 @@ That code does not compile because the first `*/` is interpreted as the end of t
 	```
 	Because there’s already a `remove()` method that takes an `int` parameter, Java calls that method rather than autoboxing.
 
-###Dates and Times
+### Dates and Times
 
-- The implementation of `Date` in java 7 are **not** in the exam
+- The implementation of `Date` in java 7 is **not** in the exam.
+- The classes `LocalDate`, `LocalDateTime`, `LocalTime` are immutable.
 - There is no constructor for `LocalDate`, `LocalDateTime`, `LocalTime`. You have to use the static methods.
 
-##Chapter 4
+----------------
+- **SUMMARY p.197 (151)**
+- **Exam essentials p.198 (152)**
+
+----------------
+
+## Chapter 4 Methods and Encapsulation
 
 - Elements required for method declaration : `void` (type), name, `parameter` (parenthesis) but **can be empty**, `method body` (brackets) but **can be empty**.
 - Access method modifiers are identical of class modifiers.
@@ -343,9 +365,7 @@ That code does not compile because the first `*/` is interpreted as the end of t
 - Calling of methods has this order : exact matches are used first, followed by wider 
 primitives, followed by autoboxing, followed by varargs.
 
-##Chapter 5
-
-###Notes
+## Chapter 5 Class Design
 
 - Java disallow multiple inheritance.
 - For the OCA exam, you should only be familiar with public and default package-level class access modifiers.
@@ -419,4 +439,4 @@ primitives, followed by autoboxing, followed by varargs.
 	1. The type of the object determines which properties exist within the object in memory.
 	2. The type of the reference to the object determines which methods and variables are accessible to the Java program.
 
-##Chapter 6
+## Chapter 6 Exceptions
