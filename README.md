@@ -25,6 +25,8 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 		- est-ce que les blocs de code sont bien ouverts et fermés; attention aux parenthèses et aux accolades
 		- est-ce que les éléments sont correctement écrits ?
 		- vérifier le typage et la déclaration des éléments
+	- le scope :
+		- il faut bien vérifier la déclaration des différentes variables et dans quel scope elles sont déclarées
 	- les imports :
 		- si le code ne commence pas à la ligne 1 on considère les imports comme valident
 		- si il commence à la ligne 1, il faut vérifier que tout est correct
@@ -32,7 +34,8 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 - Attention aux structures de code qui ne nécessitent pas forcément l'ouverture et la fermeture d'accolades. Souvent l'instruction suivante celle qui est dans le bloc est indenté pour faire croire qu'elle est dans même le bloc de code alors qu'elle ne l'est pas :
 	
 	```java
-	while (x < 10)		y--;
+	while (x < 10)
+		y--;
 		x++;
 	```	
 	Seule l'instruction `y--` est dans le block `while`
@@ -52,7 +55,8 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 - The scope of a class is not essential. If nothing is precised, it is `public`.
 - To compile a class `javac Zoo.java ` (extension `.java` needed) and to execute it `java Zoo` (`main()` method needed). 
 - Rules of java file :
-	- Each file can contain only one public class.	- The filename must match the class name, including case, and have a `.java` extension.
+	- Each file can contain only one public class.
+	- The filename must match the class name, including case, and have a `.java` extension.
 - using `L` instead of `l` for long declaration is appreciated
 - **WARNING :** be careful with numbers declaration especially these one 
 	
@@ -74,7 +78,8 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	- Do not use Java reserved words
 - **When you see a nonstandard identifier, be sure to check if it is legal. If not, you get to mark the answer “does not compile” and skip analyzing everything else in the question.**
 - Reminder on scope of variables 
-	- Local variables—in scope from declaration to end of block	- Instance variables—in scope from declaration until object garbage collected
+	- Local variables—in scope from declaration to end of block
+	- Instance variables—in scope from declaration until object garbage collected
 	- Class variables—in scope from declaration until program ends
 - Elements of a class **PIC** : **P**ackage **I**mport **C**lass
 
@@ -117,7 +122,8 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 - Operators `++` and `--` are evaluated directly in the expression
 	
 	```java
-	int x = 3;	int y = ++x * 5 / x-- + --x;
+	int x = 3;
+	int y = ++x * 5 / x-- + --x;
 			  4       4       2 (3 after the + and 2 with --)
 	(int y = 4 * 5 / 4 + 2)		  
 	System.out.println("x is " + x); //Show 2
@@ -126,7 +132,9 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 - Be careful with compound assignment operator, with this one the cast is automatic. 
 	
 	```java
-	long x = 10;						long x = 10; 	int y = 5;							int y = 5;	y = y * x; 							y *= x;
+	long x = 10;						long x = 10; 
+	int y = 5;							int y = 5;
+	y = y * x; 							y *= x;
 	// DOES NOT COMPILE					//COMPILE
 	```
 - Be careful with logical operators `&&` and `&`. Look at these cases :
@@ -134,7 +142,8 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	```java
 	X x = null;
 	if(x != null && x.getValue() < 5) { 
-		// COMPILE because the second expression is not evaluated	}
+		// COMPILE because the second expression is not evaluated
+	}
 	if(x != null & x.getValue() < 5) { 
 		// Throws an exception if x is null because the second condition is evaluated	
 	}
@@ -151,12 +160,18 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 - Be careful with this case
 	
 	```java
-	int y = 1;	int z = 1;	final int x = y<10 ? y++ : z++; 
+	int y = 1;
+	int z = 1;
+	final int x = y<10 ? y++ : z++; 
 	System.out.println(y+","+z); // Outputs 2,1 only the true condition will be evaluated
 	```
 - Only this types are allowed in `switch` statements 
-	- int and Integer	- byte and Byte	- short and Short	- char and Character 
-	- String	- enum values
+	- int and Integer
+	- byte and Byte
+	- short and Short
+	- char and Character 
+	- String
+	- enum values
 - Important quote : **There is no requirement that the case or default statements be in a particular order, unless you are going to have pathways that reach multiple sections of the switch block in a single execution.** See p. 121 for examples.
 - In a for declaration, the variable initialized must be of the same type. 
 
@@ -175,7 +190,8 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 - Be careful with `String` objects, they are immutable. Once it is created, it is not allowed to change
 	
 	```java
-	String s1 = "1";	String s2 = s1.concat("2"); 
+	String s1 = "1";
+	String s2 = s1.concat("2"); 
 	s2.concat("3"); 
 	System.out.println(s2); //Print 12 dans not 123
 	```
@@ -201,7 +217,8 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 - `delete()` method as the same rule than `substring()`
 
 	```java
-	StringBuilder sb = new StringBuilder("abcdef");	sb.delete(1, 3);
+	StringBuilder sb = new StringBuilder("abcdef");
+	sb.delete(1, 3);
 	System.out.println(sb); // adef
 	```
 - Be careful with equality of `String` and `StringBuilder`
@@ -214,11 +231,13 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	System.out.println(one == three); // true
 	```
 	```java
-	String x = "Hello World";	String y = "Hello World"; 
+	String x = "Hello World";
+	String y = "Hello World"; 
 	System.out.println(x == y); // true because of the string pool
 	```
 	```java
-	String x = "Hello World";	String z = " Hello World".trim(); // A new object is created
+	String x = "Hello World";
+	String z = " Hello World".trim(); // A new object is created
 	System.out.println(x == z); // false
 	```
 	```java
@@ -227,9 +246,11 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	System.out.println(x == y); // false
 	```
 	```java
-	String x = "Hello World";	String z = " Hello World".trim(); 
-	System.out.println(x.equals(z)); // true because it uses equals method
+	String x = "Hello World";
+	String z = " Hello World".trim(); 
+	System.out.println(x.equals(z)); // true because it uses equals methèè
 	```
+- The ``substring()`` method doesn't affect the value of a Stringbuilder. 
 
 ### Arrays and ArrayList
 
@@ -238,6 +259,8 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	```java
 	int[] ids, types; // two arrays
 	int ids[], types; // one array and one int
+	int[] vars3[]; // 2D array
+	int[] vars4 [], space [][]; // a 2D AND a 3D array
 	```
 - Binary search rules
 	
@@ -248,7 +271,7 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 |              Unsorted array              |                                          A surprise—this result isn’t predictable                                          |
 
 - For multi-dimensional array, it is recommended to draw it on a paper
-- Since java 7, diamonds operators `<>` are not required for `ArrayList` declaration
+- Since java 7, adding the type in diamonds operators `<>` is not required for `ArrayList` declaration
 - When you create an `ArrayList` from an array the `ArrayList` the two elements are linked and the size of the `ArrayList` is fixed. So you cannot remove an element of the `ArrayList`, and when you change an element of one it changes in the other
 
 ### Wrapper classes and auto boxing
@@ -264,7 +287,9 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 
 	```java
 	List<Integer> numbers = new ArrayList<>(); 
-	numbers.add(1);	numbers.add(2);	numbers.remove(1); 
+	numbers.add(1);
+	numbers.add(2);
+	numbers.remove(1); 
 	System.out.println(numbers); //Prints [1]
 	```
 	Because there’s already a `remove()` method that takes an `int` parameter, Java calls that method rather than autoboxing.
@@ -292,7 +317,11 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 - Be careful with the order of modifiers, example :
 
 	```java
-	public void walk1() {}	public final void walk2() {}	public static final void walk3() {}	public final static void walk4() {}	public modifier void walk5() {} // DOES NOT COMPILE 
+	public void walk1() {}
+	public final void walk2() {}
+	public static final void walk3() {}
+	public final static void walk4() {}
+	public modifier void walk5() {} // DOES NOT COMPILE 
 	public void final walk6() {} // DOES NOT COMPILE 
 	final public void walk7() {}
 	```
@@ -301,11 +330,21 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 - Be careful with this one
 	
 	```java
-	package pond.swan;	import pond.shore.Bird; // in different package than Bird	
+	package pond.swan;
+	import pond.shore.Bird; // in different package than Bird
+	
 	public class Swan extends Bird { // but subclass of bird
-		public void swim() {			floatInWater(); // package access to superclass
-			System.out.println(text); // package access to superclass		}		public void helpOtherSwanSwim() {			Swan other = new Swan(); //we are in the class			other.floatInWater(); // package access to superclass
-			System.out.println(other.text); // package access to superclass		}		public void helpOtherBirdSwim() {			Bird other = new Bird(); // DOES NOT COMPILE
+		public void swim() {
+			floatInWater(); // package access to superclass
+			System.out.println(text); // package access to superclass
+		}
+		public void helpOtherSwanSwim() {
+			Swan other = new Swan(); //we are in the class
+			other.floatInWater(); // package access to superclass
+			System.out.println(other.text); // package access to superclass
+		}
+		public void helpOtherBirdSwim() {
+			Bird other = new Bird(); // DOES NOT COMPILE
 			other.floatInWater(); // DOES NOT COMPILE
 			System.out.println(other.text);	 
 		}
@@ -323,7 +362,10 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 - Be careful with this one
 	
 	```java
-	Koala k = new Koala();	System.out.println(k.count); // k is a Koala	k = null;	System.out.println(k.count); // k is still a Koala
+	Koala k = new Koala();
+	System.out.println(k.count); // k is a Koala
+	k = null;
+	System.out.println(k.count); // k is still a Koala
 	```
 	Because we refer to `count` that is a static field, the instance is not important !
 - **A static member cannot call an instance member.**
@@ -331,7 +373,17 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 - For `final` members, if there is not assignation at the first time, an assignation can be realized in a static bloc, example :
 	
 	```java
-	private static int one;	private static final int two; 	private static final int three = 3; 	private static final int four; // DOES NOT COMPILE 	static {		one = 1;		two = 2;		three = 3; // DOES NOT COMPILE 		two = 4; // DOES NOT COMPILE	}	```
+	private static int one;
+	private static final int two;
+ 	private static final int three = 3;
+ 	private static final int four; // DOES NOT COMPILE
+ 	static {
+		one = 1;
+		two = 2;
+		three = 3; // DOES NOT COMPILE
+ 		two = 4; // DOES NOT COMPILE
+	}
+	```
 - For static import, you can only import methods and not classes. And be careful with methods with same name, even they are in different packages.
 - In Java parameters methods are passed by copy. If you do a reassignement in it the variable won't change. Only methods called on a object will change it. 
 - The overloading of methods is only possible by changing parameters but not type of return. Be careful with varargs parameters because Java consider them as an array so look at this one : 
@@ -386,39 +438,63 @@ primitives, followed by autoboxing, followed by varargs.
 - Beware with this example, there is not problem with this file :
 	
 	```java
-	class Rodent {}	public class Groundhog extends Rodent {}
+	class Rodent {}
+	public class Groundhog extends Rodent {}
 	```
 	But if we add `public` to class `Rodent` there will be a compilation error
 - The `super()` instruction used in constructor to call parent's one **must be only at the first line !**
 - Java automatically insert reference to super constructor if the parent class doesn't have a constructor written. Example :
 	
 	```java
-	public class Mammal { public Mammal(int age) { }	}	public class Elephant extends Mammal { 
+	public class Mammal { public Mammal(int age) { }
+	}
+	public class Elephant extends Mammal { 
 	// DOES NOT COMPILE 
 	}
 	----------
 	public class Mammal { 
 		public Mammal(int age) { 
-		}	}	public class Elephant extends Mammal { 
+		}
+	}
+	public class Elephant extends Mammal { 
 		public Elephant() { 
 			// DOES NOT COMPILE 
-		}	}
+		}
+	}
 	-----------
 	public class Mammal { 
 		public Mammal(int age) { 
-		}	}	public class Elephant extends Mammal { 
-		public Elephant() {			super(10);
+		}
+	}
+	public class Elephant extends Mammal { 
+		public Elephant() {
+			super(10);
 			//No Problems
-		}	}
+		}
+	}
 	```
-- Constructor Definition Rules:	1. The first statement of every constructor is a call to another constructor within the class using this(), or a call to a constructor in the direct parent class using super().	2. The super() call may not be used after the first statement of the constructor.	3. If no super() call is declared in a constructor, Java will insert a no-	argument super() as the first statement of the constructor.	4. If the parent doesn’t have a no-argument constructor and the child doesn’t define any constructors, the compiler will throw an error and try to insert a default no-argument constructor into the child class.	5. If the parent doesn’t have a no-argument constructor, the compiler requires an explicit call to a parent constructor in each child constructor.
+- Constructor Definition Rules:
+	1. The first statement of every constructor is a call to another constructor within the class using this(), or a call to a constructor in the direct parent class using super().
+	2. The super() call may not be used after the first statement of the constructor.
+	3. If no super() call is declared in a constructor, Java will insert a no-	argument super() as the first statement of the constructor.
+	4. If the parent doesn’t have a no-argument constructor and the child doesn’t define any constructors, the compiler will throw an error and try to insert a default no-argument constructor into the child class.
+	5. If the parent doesn’t have a no-argument constructor, the compiler requires an explicit call to a parent constructor in each child constructor.
 - If there are no conflicts on the name of variable, the using of this in the child class will call public, package or protected member of the parent class.
-- The compiler performs the following checks when you override a non private method:	1. The method in the child class must have the same signature as the method in the parent class.	2. The method in the child class must be at least as accessible or more accessible than the method in the parent class.	3. The method in the child class may not throw a checked exception that is new or broader than the class of any exception thrown in the parent class method.	4. If the method returns a value, it must be the same or a subclass of the method in the parent class, known as covariant return types. 
+- The compiler performs the following checks when you override a non private method:
+	1. The method in the child class must have the same signature as the method in the parent class.
+	2. The method in the child class must be at least as accessible or more accessible than the method in the parent class.
+	3. The method in the child class may not throw a checked exception that is new or broader than the class of any exception thrown in the parent class method.
+	4. If the method returns a value, it must be the same or a subclass of the method in the parent class, known as covariant return types. 
 - Important rule for difference and check between overloading and overriding : **Any time you see a method that appears to be overridden on the example, first check to make sure it is truly being overridden and not overloaded. Once you have confirmed it is being overridden, check that the access modifiers, return types, and any exceptions defined in the method are compatible with one another.**
 - Be careful with exceptions thrown by methods with inheritance (see p 250 for examples).
 - If a method is `private` in the parent, no rules applied for overriding or overloading it in the child.
 - Rules for static methods :
-	1. The method in the child class must have the same signature as the method in the parent class.	2. The method in the child class must be at least as accessible or more accessible than the method in the parent class.	3. The method in the child class may not throw a checked exception that is new or broader than the class of any exception thrown in the parent class method.	4. If the method returns a value, it must be the same or a subclass of the method in the parent class, known as covariant return types.	5. The method defined in the child class must be marked as static if it is marked as static in the parent class (method hiding). Likewise, the method must not be marked as static in the child class if it is not marked as static in the parent class (method overriding).- **Be careful with methods overriding. If parent's method is static, it will be his own that will be used but if it is not, the child's one will override it.**
+	1. The method in the child class must have the same signature as the method in the parent class.
+	2. The method in the child class must be at least as accessible or more accessible than the method in the parent class.
+	3. The method in the child class may not throw a checked exception that is new or broader than the class of any exception thrown in the parent class method.
+	4. If the method returns a value, it must be the same or a subclass of the method in the parent class, known as covariant return types.
+	5. The method defined in the child class must be marked as static if it is marked as static in the parent class (method hiding). Likewise, the method must not be marked as static in the child class if it is not marked as static in the parent class (method overriding).
+- **Be careful with methods overriding. If parent's method is static, it will be his own that will be used but if it is not, the child's one will override it.**
 - Be careful with abstract methods. Examinators will presente some of them with body statement and if it's the case, the code won't compile !
 - Abstract class definition rules:
 	1. Abstract classes cannot be instantiated directly.
