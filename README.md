@@ -310,11 +310,12 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 
 ## Chapter 4 Methods and Encapsulation
 
-- Elements required for method declaration : `void` (type), name, `parameter` (parenthesis) but **can be empty**, `method body` (brackets) but **can be empty**.
+- Method declaration : 
+	- Elements required : `void` (type), name, parenthesis for `parameter` but **can be empty**, brackets for `method body` but **can be empty**.
+	- Others elements : access modifier
 - Access method modifiers are identical of class modifiers.
-- The order of identifiers is import **be careful during the exam**.
 - Method modifiers `synchronized`, `native`, `strictfp` are not in the exam.
-- Be careful with the order of modifiers, example :
+- Be careful with the order of modifiers, it has an importance, example :
 
 	```java
 	public void walk1() {}
@@ -325,8 +326,15 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	public void final walk6() {} // DOES NOT COMPILE 
 	final public void walk7() {}
 	```
-- Methods name follow the same rules of variable names.
-- Varargs parameters must appear at the end of the parameters list and at least must be unique.
+- Methods' name follow the same rules of variable names.
+- Varargs parameters must appear at the end of the parameters list and at least must be unique. It is optional so these different declarations are valid 
+		
+	```java
+	method() //Empty array
+	method(1, 2) //Array with two elements
+	method(new Integer[]{1,2}) //Array with two elements
+	```
+	
 - Be careful with this one
 	
 	```java
@@ -353,7 +361,7 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	Line 15 and 16 don't compile because `Bird` reference is not in the same package and is not a subclass of `Bird` so it doesn't compile. It is important to verify if we are in the same package of the reference we use or if this reference extends the class we want to use methods.
 - Summary of access modifiers :
 
-	| Can access | If that member is private? | If that member has default (package private) access? | If that member is protected? | If that member is public? |
+	| Can access | Private ? | Default ? | Protected ? | Public ? |
 	|:--------------------------------------------------------------:|:--------------------------:|:----------------------------------------------------:|:----------------------------:|:-------------------------:|
 	| Member in the same class | Yes | Yes | Yes | Yes |
 	| Member in another class in same package | No | Yes | Yes | Yes |
@@ -362,10 +370,23 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 - Be careful with this one
 	
 	```java
-	Koala k = new Koala();
-	System.out.println(k.count); // k is a Koala
-	k = null;
-	System.out.println(k.count); // k is still a Koala
+	public class Koala{
+		public static count = 0;
+		public static void one(){};
+		public static void two(){};
+		public void three(){};
+		public static void main(String[] args){
+			System.out.println(count);
+		}
+	}
+	public class KoalaTester{
+		public static void main(String[] args){
+			Koala k = new Koala();
+			System.out.println(k.count); // k is a Koala
+			k = null;
+			System.out.println(k.count); // k is still a Koala
+		}
+	}
 	```
 	Because we refer to `count` that is a static field, the instance is not important !
 - **A static member cannot call an instance member.**
