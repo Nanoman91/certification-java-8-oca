@@ -299,6 +299,7 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 - The implementation of `Date` in java 7 is **not** in the exam.
 - The classes `LocalDate`, `LocalDateTime`, `LocalTime` are immutable.
 - There is no constructor for `LocalDate`, `LocalDateTime`, `LocalTime`. You have to use the static methods.
+- Methods on Period allow chaining but only the laste is effective.
 
 ----------------
 - **SUMMARY p.197 (151)**
