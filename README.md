@@ -353,9 +353,9 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 			System.out.println(other.text); // package access to superclass
 		}
 		public void helpOtherBirdSwim() {
-			Bird other = new Bird(); // DOES NOT COMPILE
+			Bird other = new Bird();
 			other.floatInWater(); // DOES NOT COMPILE
-			System.out.println(other.text);	 
+			System.out.println(other.text);	// DOES NOT COMPILE
 		}
 	}
 	```
