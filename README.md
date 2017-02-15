@@ -311,11 +311,18 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 
 ## Chapter 4 Methods and Encapsulation
 
+### Designing Methods
+
 - Method declaration : 
-	- Elements required : `void` (type), name, parenthesis for `parameter` but **can be empty**, brackets for `method body` but **can be empty**.
-	- Others elements : access modifier
-- Access method modifiers are identical of class modifiers.
-- Method modifiers `synchronized`, `native`, `strictfp` are not in the exam.
+	- Elements required : 
+		- `void` (type), 
+		- name, 
+		- parenthesis for `parameter` but **can be empty**
+		-  brackets for `method body` but **can be empty**.
+	- Others elements : 
+		- access modifier
+- Access method modifiers are identical of class' modifiers.
+- The modifiers are special but are not in the exam : `synchronized`, `native`, `strictfp`.
 - Be careful with the order of modifiers, it has an importance, example :
 
 	```java
@@ -327,18 +334,30 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	public void final walk6() {} // DOES NOT COMPILE 
 	final public void walk7() {}
 	```
-- Methods' name follow the same rules of variable names.
-- Varargs parameters must appear at the end of the parameters list and at least must be unique. It is optional so these different declarations are valid 
+- Methods' name follow the same rules of variable's names.
+
+### Working with Varargs
+
+- `Varargs` parameters must appear at the end of the parameters list and at least must be unique. It is optional so these different declarations are valid 
 		
 	```java
-	method() //Empty array
-	method(1, 2) //Array with two elements
-	method(new Integer[]{1,2}) //Array with two elements
+	public void method(int ... args){}; // Declaration
+	method() // Empty array
+	method(1, 2) // Array with two elements
+	method(new Integer[]{1,2}) // Array with two elements
 	```
-	
-- Be careful with this one
+
+### Applying Access Modifiers	
+
+- Be careful with this example
 	
 	```java
+	package pond.shore; 
+	public class Bird {		protected String text = "floating"; 
+		protected void floatInWater() {			System.out.println(text); 
+		}
+	}
+	
 	package pond.swan;
 	import pond.shore.Bird; // in different package than Bird
 	
@@ -355,11 +374,11 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 		public void helpOtherBirdSwim() {
 			Bird other = new Bird();
 			other.floatInWater(); // DOES NOT COMPILE
-			System.out.println(other.text);	// DOES NOT COMPILE
+			System.out.println(other.text); // DOES NOT COMPILE
 		}
 	}
 	```
-	Line 15 and 16 don't compile because `Bird` reference is not in the same package and is not a subclass of `Bird` so it doesn't compile. It is important to verify if we are in the same package of the reference we use or if this reference extends the class we want to use methods.
+	Lines 24 and 25 don't compile because `Bird` reference is not in the same package and is not a subclass of `Bird` so it doesn't compile. It is important to verify if we are in the same package of the reference we use or if this reference extends the class we want to use methods.
 - Summary of access modifiers :
 
 	| Can access | Private ? | Default ? | Protected ? | Public ? |
@@ -368,6 +387,10 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	| Member in another class in same package | No | Yes | Yes | Yes |
 	| Member in a superclass in a different package | No | No | Yes | Yes |
 	| Method/field in a non- superclass class in a different package | No | No | No | Yes |
+	
+### Designing Static Methods and Fields
+
+- Static fiels are shared with every instance of the class.
 - Be careful with this one
 	
 	```java
@@ -407,14 +430,24 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	}
 	```
 - For static import, you can only import methods and not classes. And be careful with methods with same name, even they are in different packages.
-- In Java parameters methods are passed by copy. If you do a reassignement in it the variable won't change. Only methods called on a object will change it. 
-- The overloading of methods is only possible by changing parameters but not type of return. Be careful with varargs parameters because Java consider them as an array so look at this one : 
+
+	```java
+	import static statics.A.TYPE;	import static statics.B.TYPE; // DOES NOT COMPILE
+	```
+
+### Passing Data Among Methods
+	
+- In Java, parameters of the methods are passed by copy. If you do a reassignement in it, the variable won't change. Only methods called on a object will change it.
+
+### Overloading Methods
+
+- The overloading of methods is only possible by changing parameters but not type of return. Be careful with varargs parameters because Java consider them as an array, so look at this one : 
 	
 	```java 
 	public void fly(int[] lengths) { }
-	public void fly(int... lengths) { }     // DOES NOT COMPILE
+	public void fly(int... lengths) { } // DOES NOT COMPILE
 	```
-- If there are these two methods : public void fly(int numMiles) { } public void fly(Integer numMiles) { }. If Java sees an int as parameters it won't do autoboxing and use the first one. It is a "lazy" mode. 
+- If there are these two methods : `public void fly(int numMiles) { }` and `public void fly(Integer numMiles) { }`. If Java sees an int as parameter it won't do autoboxing and use the first one. It is a "lazy" mode. 
 - Be careful with this one, it cannot handle converting in two steps to a long and then to a Long :
 	
 	```java
@@ -422,13 +455,21 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
   		public static void play(Long l) { }
   		public static void play(Long... l) { }
   		public static void main(String[] args) {
-    		play(4);     // DOES NOT COMPILE
-    		play(4L);     // calls the Long version
+    		play(4); // DOES NOT COMPILE
+    		play(4L); // calls the Long version
   		} 
   	}
 	```
-- The calling of this to reference to another constructor must be the first call even it does not compile. 
-- Final fields must be initialized at least In the constructor. 
+
+### Creating Constructors
+	
+- The calling of `this` to reference another constructor must be the first call even if it does not compile. 
+- `final` fields must be initialized at least In the constructor.
+- Order of initialization :
+	1. If there is a superclass, initialize it first (we’ll cover this rule in the next chapter. For now, just say “no superclass” and go on to the next rule.)
+	2. Static variable declarations and static initializers in the order they appear in the file
+	3. Instance variable declarations and instance initializers in the order they appear in the file.
+	4. The constructor.
 - Be very careful with the order of initialization :
 	
 	```java
@@ -444,8 +485,7 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	}	 
 	```
 	This one print : 2 4 6 8 5. First static blocs then bloc of constructor and finaly constructor. 
-- Calling of methods has this order : exact matches are used first, followed by wider 
-primitives, followed by autoboxing, followed by varargs.
+- Calling of methods has this order : exact matches are used first, followed by wider primitives, followed by autoboxing, followed by varargs.
 
 ----------------
 
