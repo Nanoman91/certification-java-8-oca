@@ -487,7 +487,32 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	This one print : 2 4 6 8 5. First static blocs then bloc of constructor and finaly constructor. 
 - Calling of methods has this order : exact matches are used first, followed by wider primitives, followed by autoboxing, followed by varargs.
 
+### Lambdas
+
+- There are not a lot of questions on the exam about lambdas but be able to verify the difference rules of the syntax :
+	- a parameter with an optional parameter type
+	- the arrow
+	- a body with optionals brackets (depends of the content)
+	
+	```java
+	// These are equivalent and valid
+	a -> a.canHop()
+	(Animal a) -> { return a.canHop(); }
+	``` 
+	- if there is more than one parameter, parenthesis are obligatory
+
+	```java
+	print((a, b) -> a.startsWith("test"));
+	```
+- You cannot redeclare an argument passed in a lambda expression
+
+```java
+(a, b) -> { int a = 0; return 5;} // DOES NOT COMPILE
+```	
+
 ----------------
+- **SUMMARY p.261 (215)**
+- **Exam essentials p.262 (216)**
 
 ----------------
 
