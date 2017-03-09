@@ -9,11 +9,11 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 
 1. [Conseils pour l'examen](#conseils-pour-lexamen)
 2. [Chapitre 1 - Java building blocks](#chapter-1-java-building-blocks)
-3. [Chapitre 2 - Operators and Statements](chapter-2-operators-and-statements)
-4. [Chapitre 3 - Core Java APIs](chapter-3-core-java-apis)
-5. [Chapitre 4 - Methods and Encapsulation](chapter-4-methods-and-encapsulation)
-6. [Chapitre 5 - Class Design](chapter-5-class-design)
-7. [Chapitre 6 - Exceptions](chapter-6-exceptions)
+3. [Chapitre 2 - Operators and Statements](#chapter-2-operators-and-statements)
+4. [Chapitre 3 - Core Java APIs](#chapter-3-core-java-apis)
+5. [Chapitre 4 - Methods and Encapsulation](#chapter-4-methods-and-encapsulation)
+6. [Chapitre 5 - Class Design](#chapter-5-class-design)
+7. [Chapitre 6 - Exceptions](#chapter-6-exceptions)
 
 ## Conseils pour l’examen
 
@@ -353,8 +353,10 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	
 	```java
 	package pond.shore; 
-	public class Bird {		protected String text = "floating"; 
-		protected void floatInWater() {			System.out.println(text); 
+	public class Bird {
+		protected String text = "floating"; 
+		protected void floatInWater() {
+			System.out.println(text); 
 		}
 	}
 	
@@ -432,7 +434,8 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 - For static import, you can only import methods and not classes. And be careful with methods with same name, even they are in different packages.
 
 	```java
-	import static statics.A.TYPE;	import static statics.B.TYPE; // DOES NOT COMPILE
+	import static statics.A.TYPE;
+	import static statics.B.TYPE; // DOES NOT COMPILE
 	```
 
 ### Passing Data Among Methods
