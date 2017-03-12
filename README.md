@@ -248,7 +248,7 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	```java
 	String x = "Hello World";
 	String z = " Hello World".trim(); 
-	System.out.println(x.equals(z)); // true because it uses equals methèè
+	System.out.println(x.equals(z)); // true because it uses equals method
 	```
 - The ``substring()`` method doesn't affect the value of a Stringbuilder. 
 
@@ -520,68 +520,138 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 
 ## Chapter 5 Class Design
 
-- Java disallow multiple inheritance.
-- For the OCA exam, you should only be familiar with public and default package-level class access modifiers.
-- Beware with this example, there is not problem with this file :
+### Introduction
+
+- Java disallows multiple inheritance but allows multiple implementation.
+- A final class can't be extended.
+
+### Extending a class
+
+- Private members are not accessible by others classes even by inheritance.
+
+### Applying class access modifiers
+
+- For the OCA exam, you should only be familiar with `public` and `default` package-level **class** access modifiers.
+- Beware with this example, there is no problem with a file named `Groundhog.java` even if it is an interface :
 	
 	```java
 	class Rodent {}
 	public class Groundhog extends Rodent {}
 	```
 	But if we add `public` to class `Rodent` there will be a compilation error
-- The `super()` instruction used in constructor to call parent's one **must be only at the first line !**
-- Java automatically insert reference to super constructor if the parent class doesn't have a constructor written. Example :
+	
+### Creating java objects
+
+- Every classes in java inherits from the `Object` class but there is no need to write it. The compiler automatically inserts the code for you.
+
+### Defining constructors
+
+- The `super()` instruction used in constructor to call parent's one **must be only at the first effective line and at only one time !**
+
+### Understanding compiler enhancements
+
+- Java automatically inserts reference to super constructor if the parent class doesn't have a constructor written. So if there is no one written, you have to reference explicitly a written one. Example :
 	
 	```java
-	public class Mammal { public Mammal(int age) { }
+	public class Mammal { 
+		public Mammal(int age) { }
 	}
 	public class Elephant extends Mammal { 
-	// DOES NOT COMPILE 
+		// DOES NOT COMPILE 
 	}
-	----------
+	```
+	```java
 	public class Mammal { 
-		public Mammal(int age) { 
-		}
+		public Mammal(int age) { }
 	}
 	public class Elephant extends Mammal { 
 		public Elephant() { 
 			// DOES NOT COMPILE 
 		}
 	}
-	-----------
+	```
+	```java
 	public class Mammal { 
-		public Mammal(int age) { 
-		}
+		public Mammal(int age) { }
 	}
 	public class Elephant extends Mammal { 
 		public Elephant() {
 			super(10);
-			//No Problems
+			// No Problems
 		}
 	}
 	```
-- Constructor Definition Rules:
-	1. The first statement of every constructor is a call to another constructor within the class using this(), or a call to a constructor in the direct parent class using super().
-	2. The super() call may not be used after the first statement of the constructor.
-	3. If no super() call is declared in a constructor, Java will insert a no-	argument super() as the first statement of the constructor.
-	4. If the parent doesn’t have a no-argument constructor and the child doesn’t define any constructors, the compiler will throw an error and try to insert a default no-argument constructor into the child class.
-	5. If the parent doesn’t have a no-argument constructor, the compiler requires an explicit call to a parent constructor in each child constructor.
-- If there are no conflicts on the name of variable, the using of this in the child class will call public, package or protected member of the parent class.
+	In the two first examples, the compiler tries to insert the no-argument `super()` as the  first statement of the constructor in the Elephant class, and there is no such constructor in the parent class.
+
+### Reviewing constructor rules
+
+1. The first statement of every constructor is a call to another constructor within the class using this(), or a call to a constructor in the direct parent class using super().
+2. The super() call may not be used after the first statement of the constructor.
+3. If no super() call is declared in a constructor, Java will insert a no-	argument super() as the first statement of the constructor.
+4. If the parent doesn’t have a no-argument constructor and the child doesn’t define any constructors, the compiler will throw an error and try to insert a default no-argument constructor into the child class.
+5. If the parent doesn’t have a no-argument constructor, the compiler requires an explicit call to a parent constructor in each child constructor.
+
+### Calling constructors
+
+- In Java, the parent constructor is always executed before the child constructor.
+
+	```java
+	class Primate { 
+		public Primate() { System.out.println("Primate"); }	}	class Ape extends Primate { 
+		public Ape() { System.out.println("Ape"); }	}	public class Chimpanzee extends Ape { 
+		public static void main(String[] args) {			new Chimpanzee(); 
+		}	}
+	```
+	This code will output :
+		
+		Primate 
+		Ape
+	
+	Just remember to ***think like the compiler*** as much as possible and insert the missing constructors or statements as needed.
+
+### Calling inherited class members 
+
+- If there are no conflicts on the name of variable, the using of `this` in the child class will call public, package or protected member of the parent class.
+- If there is a conflict you have to use `super` or `this` to specify the member you want to use.
+
+### Inheriting Methods
+
+#### Overriding/Overloading a method
+
+- When you override a method, you may reference the parent version of the methodusing the super keyword. In this manner, the keywords this and super allow you to select between the current and parent version of a method, respectively.
+
+	```java
+	public class Canine {		public double getAverageWeight() { return 50; }	}	
+	public class Wolf extends Canine { 
+		public double getAverageWeight() { return super.getAverageWeight()+20; }	
+		public static void main(String[] args) { 
+			System.out.println(new Canine().getAverageWeight());  //50
+			System.out.println(new Wolf().getAverageWeight()); //70		} 
+	}
+	```
+
 - The compiler performs the following checks when you override a non private method:
 	1. The method in the child class must have the same signature as the method in the parent class.
 	2. The method in the child class must be at least as accessible or more accessible than the method in the parent class.
 	3. The method in the child class may not throw a checked exception that is new or broader than the class of any exception thrown in the parent class method.
-	4. If the method returns a value, it must be the same or a subclass of the method in the parent class, known as covariant return types. 
-- Important rule for difference and check between overloading and overriding : **Any time you see a method that appears to be overridden on the example, first check to make sure it is truly being overridden and not overloaded. Once you have confirmed it is being overridden, check that the access modifiers, return types, and any exceptions defined in the method are compatible with one another.**
-- Be careful with exceptions thrown by methods with inheritance (see p 250 for examples).
-- If a method is `private` in the parent, no rules applied for overriding or overloading it in the child.
-- Rules for static methods :
-	1. The method in the child class must have the same signature as the method in the parent class.
-	2. The method in the child class must be at least as accessible or more accessible than the method in the parent class.
-	3. The method in the child class may not throw a checked exception that is new or broader than the class of any exception thrown in the parent class method.
 	4. If the method returns a value, it must be the same or a subclass of the method in the parent class, known as covariant return types.
-	5. The method defined in the child class must be marked as static if it is marked as static in the parent class (method hiding). Likewise, the method must not be marked as static in the child class if it is not marked as static in the parent class (method overriding).
+- Overloading a method and overriding a method are similar in that they both involve redefining a method using the same name. They differ in that an overloaded method will use a different signature than an overridden method. This distinction allows overloaded methods a great deal more freedom in syntax than an overridden method would have. **Any time you see a method that appears to be overridden on the example, first check to make sure it is truly being overridden and not overloaded. Once you have confirmed it is being overridden, check that the access modifiers, return types, and any exceptions defined in the method are compatible with one another.**
+- Be careful with exceptions thrown by methods with inheritance. If the parent throws an exception, the overriding child method must at least throws none, the same or a subclass exception.
+
+#### Redeclaring private methods
+
+- If a method is `private` in the parent, no rules are applied for overriding or overloading it in the child.
+
+#### Hiding static methods
+
+- The specific rule for hiding static methods is this one (the four others are the same than before) :
+	1. The method defined in the child class must be marked as static if it is marked as static in the parent class (method hiding). Likewise, the method must not be marked as static in the child class if it is not marked as static in the parent class (method overriding).
 - **Be careful with methods overriding. If parent's method is static, it will be his own that will be used but if it is not, the child's one will override it.**
+- At runtime the child version of an **overridden** method is always executed for an instance regardless of whether the method call is defined in a parent or child class method. In this manner, the parent method is never used unless an explicit call to the parent method is referenced, using the syntax `ParentClassName.method()`. Alternatively, at runtime the parent version of a **hidden** method is always executed if the call to the method is defined in the parent class.
+- `final` methods cannot be overridden
+
+### Inheriting variables
+
 - Be careful with abstract methods. Examinators will presente some of them with body statement and if it's the case, the code won't compile !
 - Abstract class definition rules:
 	1. Abstract classes cannot be instantiated directly.
@@ -615,6 +685,14 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 - Summary of polymorphism rules 
 	1. The type of the object determines which properties exist within the object in memory.
 	2. The type of the reference to the object determines which methods and variables are accessible to the Java program.
+
+----------------
+- **SUMMARY p.334 (288)**
+- **Exam essentials p.335 (289)**
+
+----------------
+
+**[Back to top](#sommaire)**
 
 ## Chapter 6 Exceptions
 
