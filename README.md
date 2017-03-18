@@ -699,7 +699,73 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 
 ## Chapter 6 Exceptions
 
+### Understanding Exception Types
+
+- `RuntimeException` are not considered, in JAVA, as checked exceptions. There is no need explicit treatment for them in the code.
+- Others exceptions inherit from `Exception` need to be anticipated and treated. Java has a rule called *the handle or declare rule*. For checked exceptions, Java requires the code to either handle them or declare them in the method signature.
+
+	```java
+	void fall() throws Exception { 
+		throw new Exception();	}
+	```
+
+### Throwing an Exception
+
+- There are two keywords in JAVA for exceptions :
+	- `throw` tells Java you want some other part of the code to deal with the exception. 
+	- `throws` only used for methods tells an exception might be thrown
+- Rules about exceptions :
+
+	|        Type       |                      How to recognize                      | Okay for program to catch? | Is program required to handle or declare? |
+	|:-----------------:|:----------------------------------------------------------:|:--------------------------:|:-----------------------------------------:|
+	| Runtime exception |                Subclass of RuntimeException                |             Yes            |                     No                    |
+	| Checked exception | Subclass of Exception but not subclass of RuntimeException |             Yes            |                    Yes                    |
+	|       Error       |                      Subclass of Error                     |             No             |                     No                    |
+	
+
+### Using a try Statement
+
+- Braces are **always** required for `try/catch` blocs even if there is only one instruction after them.
+- If there is a `try`, there must be a `catch` and the reverse is true.
+
+### Adding a finally Block
+
+- A `finally` block is **always** executed.
+- The order is important and is always :
+	
+	```java
+	 try {
+	 	// Do something
+	 } catch (Exception e) {
+	 	// Do something
+	 } finally {
+		// This block is optional 	 
+	 }
+	```
+- There is one exception to “the finally block always runs after the catch block” rule : the static method `System.exit(0)` (0 is an example, the signature has an `Integer` as parameter). It tells the program to stop right now and the `finally` block is not executed.
+
+### Catching Various Types of Exceptions- Be careful when there are more than one exception thrown. The order of catch blocks is important. The more specific exception **must** appear in first.
+	
+	```java
+	public void visitSnakes() { 
+		try {			seeAnimal();		} catch (Exception e) {			System.out.print("Exception");		} catch (RuneTimeException e) {// DOES NOT COMPILE			System.out.print("Runtime exception"); 
+		}	}
+	```
+
+### Recognizing Common Exception Types
+
+#### Runtime Exceptions
+
+- **ArithmeticException** Thrown by the JVM when code attempts to divide by zero- **ArrayIndexOutOfBoundsException** Thrown by the JVM when code uses an illegal index to access an array- **ClassCastException** Thrown by the JVM when an attempt is made to cast an exception to a subclass of which it is not an instance- **IllegalArgumentException** Thrown by the programmer to indicate that a method has been passed an illegal or inappropriate argument- **NullPointerException** Thrown by the JVM when there is a null reference where an object is required- **NumberFormatException** Thrown by the programmer when an attempt is made to convert a string to a numeric type but the string doesn’t have an appropriate format
+
+#### Checked Exceptions
+
+- **FileNotFoundException** Thrown programmatically when code tries to reference a  le that does not exist- **IOException** Thrown programmatically when there’s a problem reading or writing a  le#### Errors- **ExceptionInInitializerError** Thrown by the JVM when a static initializer throws an exception and doesn’t handle it- **StackOverflowError** Thrown by the JVM when a method calls itself too many times (this is called in nite recursion because the method typically calls itself without end)- **NoClassDefFoundError** Thrown by the JVM when a class that the code uses is available at compile time but not runtime
+
 ----------------
+- **SUMMARY p.369 (323)**
+- **Exam essentials p.370 (324)**
+
 ----------------
 
 **[Back to top](#sommaire)**
