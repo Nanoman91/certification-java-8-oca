@@ -761,6 +761,57 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 #### Checked Exceptions
 
 - **FileNotFoundException** Thrown programmatically when code tries to reference a  le that does not exist- **IOException** Thrown programmatically when there’s a problem reading or writing a  le#### Errors- **ExceptionInInitializerError** Thrown by the JVM when a static initializer throws an exception and doesn’t handle it- **StackOverflowError** Thrown by the JVM when a method calls itself too many times (this is called in nite recursion because the method typically calls itself without end)- **NoClassDefFoundError** Thrown by the JVM when a class that the code uses is available at compile time but not runtime
+### Calling Methods That Throw Exceptions
+
+- If a method throws an `Exception` that is not a runtime one you have to treat it. You can throws it again or uses a `try/catch` bloc.
+	
+	```java
+	class NoMoreCarrotsException extends Exception {
+	} 
+	public class Bunny {		public static void main(String[] args) { 
+			eatCarrot();// DOES NOT COMPILE because the exception is not treated		}		private static void eatCarrot() throws NoMoreCarrotsException { }	}
+	```
+	Solution 1 :
+	
+	```java
+	// declare exception
+	public static void main(String[] args) throws NoMoreCarrotsException { 
+		eatCarrot();	}
+	```
+	Solution 2 :
+	
+	```java
+	public static void main(String[] args) {		try { 
+			eatCarrot();		} catch (NoMoreCarrotsException e ) {// handle exception
+			System.out.print("sad rabbit");		} 
+	}
+	```
+
+### Subclasses
+
+- When a class overrides a method from a superclass or implements a method from an interface, it’s **not allowed** to add new checked exceptions to the method signature.
+- A subclass is **allowed** to declare **fewer** exceptions than the superclass or interface. This is legal because callers are already handling them. Similarly, a class is **allowed** to declare a **subclass** of an exception type. This rule applies only to checked exceptions and is not valid for **runtime** exceptions.
+
+### Printing an Exception
+
+- There are three ways to print an exception :
+	1. You can let Java print it out
+	2. Print just the message
+	3. Print where the stack trace comes from.
+
+	```java
+	public static void main(String[] args) { 
+		try {			hop();	} catch (Exception e) {		System.out.println(e); // 1
+		System.out.println(e.getMessage()); // 2
+		e.printStackTrace(); // 3		} 
+	}	private static void hop() {		throw new RuntimeException("cannot hop");	}
+	```
+	This code results in the following output:
+	
+	```java	java.lang.RuntimeException: cannot hop 
+	cannot hop	java.lang.RuntimeException: cannot hop		at trycatch.Handling.hop(Handling.java:15) 
+		at 	trycatch.Handling.main(Handling.java:7)
+	```
 
 ----------------
 - **SUMMARY p.369 (323)**
