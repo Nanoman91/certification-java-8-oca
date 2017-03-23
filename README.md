@@ -655,6 +655,22 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 
 ### Inheriting variables
 
+- Java doesn’t allow variables to be overridden but instead hidden.
+
+#### Hiding Variables- This creates two copies of the variable within an instance of the child class: one instance de ned for the parent reference and another de ned for the child reference. You can access to the parent variable with the keyword `super`-  If you’re referencing the variable from within the parent class, the variable de ned in the parent class is used. Alternatively, if you’re referencing the variable from within a child class, the variable de ned in the child class is used. Exemple : 
+	
+	```java
+	public class Animal { 
+		public int length = 2;	}	public class Jellyfish extends Animal { 
+		public int length = 5;		public static void main(String[] args) {		Jellyfish jellyfish = new Jellyfish(); 
+		Animal animal = new Jellyfish(); 
+		System.out.println(jellyfish.length); // print 5 because it is a JellyFish 
+		System.out.println(animal.length); // print 2 because it is an animal		} 
+	}
+	```
+
+### Creating Abstract Classes
+
 - Be careful with abstract methods. Examinators will presente some of them with body statement and if it's the case, the code won't compile !
 - Abstract class definition rules:
 	1. Abstract classes cannot be instantiated directly.
@@ -760,7 +776,7 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 
 #### Checked Exceptions
 
-- **FileNotFoundException** Thrown programmatically when code tries to reference a  le that does not exist- **IOException** Thrown programmatically when there’s a problem reading or writing a  le#### Errors- **ExceptionInInitializerError** Thrown by the JVM when a static initializer throws an exception and doesn’t handle it- **StackOverflowError** Thrown by the JVM when a method calls itself too many times (this is called in nite recursion because the method typically calls itself without end)- **NoClassDefFoundError** Thrown by the JVM when a class that the code uses is available at compile time but not runtime
+- **FileNotFoundException** Thrown programmatically when code tries to reference a file that does not exist- **IOException** Thrown programmatically when there’s a problem reading or writing a  le#### Errors- **ExceptionInInitializerError** Thrown by the JVM when a static initializer throws an exception and doesn’t handle it- **StackOverflowError** Thrown by the JVM when a method calls itself too many times (this is called in nite recursion because the method typically calls itself without end)- **NoClassDefFoundError** Thrown by the JVM when a class that the code uses is available at compile time but not runtime
 ### Calling Methods That Throw Exceptions
 
 - If a method throws an `Exception` that is not a runtime one you have to treat it. You can throws it again or uses a `try/catch` bloc.
@@ -782,7 +798,8 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	
 	```java
 	public static void main(String[] args) {		try { 
-			eatCarrot();		} catch (NoMoreCarrotsException e ) {// handle exception
+			eatCarrot();		} catch (NoMoreCarrotsException e ) {
+			// handle exception
 			System.out.print("sad rabbit");		} 
 	}
 	```
@@ -808,8 +825,8 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	```
 	This code results in the following output:
 	
-	```java	java.lang.RuntimeException: cannot hop 
-	cannot hop	java.lang.RuntimeException: cannot hop		at trycatch.Handling.hop(Handling.java:15) 
+	```java	java.lang.RuntimeException: cannot hop //1
+	cannot hop //2	java.lang.RuntimeException: cannot hop //3		at trycatch.Handling.hop(Handling.java:15) 
 		at 	trycatch.Handling.main(Handling.java:7)
 	```
 
