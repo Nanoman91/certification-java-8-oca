@@ -509,9 +509,9 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	```
 - You cannot redeclare an argument passed in a lambda expression
 
-```java
-(a, b) -> { int a = 0; return 5;} // DOES NOT COMPILE
-```	
+	```java
+	(a, b) -> { int a = 0; return 5;} // DOES NOT COMPILE
+	```	
 
 ----------------
 - **SUMMARY p.261 (215)**
@@ -525,8 +525,8 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 
 ### Introduction
 
-- Java disallows multiple inheritance but allows multiple implementation.
-- A final class can't be extended.
+- Java **disallows** multiple inheritance but allows multiple implementation.
+- A final class **can't** be extended.
 
 ### Extending a class
 
@@ -626,7 +626,9 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	```java
 	public class Canine {		public double getAverageWeight() { return 50; }	}	
 	public class Wolf extends Canine { 
-		public double getAverageWeight() { return super.getAverageWeight()+20; }	
+		public double getAverageWeight() { 
+			return super.getAverageWeight()+20; 
+		}
 		public static void main(String[] args) { 
 			System.out.println(new Canine().getAverageWeight());  //50
 			System.out.println(new Wolf().getAverageWeight()); //70		} 
@@ -662,48 +664,116 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	```java
 	public class Animal { 
 		public int length = 2;	}	public class Jellyfish extends Animal { 
-		public int length = 5;		public static void main(String[] args) {		Jellyfish jellyfish = new Jellyfish(); 
-		Animal animal = new Jellyfish(); 
-		System.out.println(jellyfish.length); // print 5 because it is a JellyFish 
-		System.out.println(animal.length); // print 2 because it is an animal		} 
+		public int length = 5;		public static void main(String[] args) {			Jellyfish jellyfish = new Jellyfish(); 
+			Animal animal = new Jellyfish(); 
+			System.out.println(jellyfish.length); // print 5 because it is a JellyFish 
+			System.out.println(animal.length); // print 2 because it is an animal		} 
 	}
 	```
 
 ### Creating Abstract Classes
 
-- Be careful with abstract methods. Examinators will presente some of them with body statement and if it's the case, the code won't compile !
+- Be careful with abstract methods. Examinators will present some of them with body statement and if it's the case, the code won't compile !
 - Abstract class definition rules:
-	1. Abstract classes cannot be instantiated directly.
+	1. Abstract classes **cannot** be instantiated directly.
 	2. Abstract classes may be defined with any number, including zero, of abstract and non-abstract methods.
-	3. Abstract classes may not be marked as private or final.
-	4. An abstract class that extends another abstract class inherits all of its abstract methods as its own abstract methods.
-	5. The first concrete class that extends an abstract class must provide an implementation for all of the inherited abstract methods.
-- Abstract method Definition rules:
-	1. Abstract methods may only be defined in abstract classes.
-	2. Abstract methods may not be declared private or final.
-	3. Abstract methods must not provide a method body/implementation in the abstract class for which is it declared.
-	4. Implementing an abstract method in a subclass follows the same rules for overriding a method. For example, the name and signature must be the same, and the visibility of the method in the subclass must be at least as accessible as the method in the parent class.
+	3. Abstract classes **may not** be marked as private or final.
+	4. An abstract class that extends another abstract class **inherits** all of its abstract methods as its own abstract methods.
+	5. The first concrete class that extends an abstract class **must** provide an implementation for all of the inherited abstract methods.
+- Abstract method definition rules:
+	1. Abstract methods **may** only be defined in abstract classes.
+	2. Abstract methods **may not** be declared private or final.
+	3. Abstract methods **must not** provide a method body/implementation in the abstract class for which is it declared.
+	4. Implementing an abstract method in a subclass follows the same rules for overriding a method. For example, the name and signature **must** be the same, and the visibility of the method in the subclass **must** be at least as accessible as the method in the parent class.
+
+### Implementing interfaces
+
+- In java multiple inheritance is **allowed** for interfaces
+
+#### Defining an interface
+
 - Interfaces rules 
 	1. Interfaces cannot be instantiated directly.
 	2. An interface is not required to have any methods.
 	3. An interface may not be marked as final.
 	4. All top-level interfaces are assumed to have public or default access, and they must include the abstract modifier in their definition. Therefore, marking an interface as private, protected, or final will trigger a compiler error, since this is incompatible with these assumptions. 
-	5. All nondefault methods in an interface are assumed to have the modifiers abstract and public in their definition. Therefore, marking a method as private, protected, or final will trigger compiler errors as these are incompatible with the abstract and public keywords.
-- Multiple inheritance is allowed for interfaces
+	5. All non default methods in an interface are assumed to have the modifiers abstract and public in their definition. Therefore, marking a method as private, protected, or final will trigger compiler errors as these are incompatible with 
 - Be careful with traps in the exam with this rule : a class can implement an interface, a class cannot extend an interface. Likewise, whereas an interface can extend another interface, an  interface cannot implement another interface.
+
+#### Inheriting an interface
+
+1. An interface that extends another interface, as well as an abstract class that implements an interface, inherits all of the abstract methods as its own abstract methods.2. The first concrete class that implements an interface, or extends an abstract class that implements an interface, must provide an implementation for all of the inherited abstract methods.
+3. An interface may extend multiple interfaces.
+
+#### Classes, Interfaces, and Keywords
+
+- Be careful in the exam, examinators will try to trap you with simple keywords
+
+	```java
+	public interface CanRun {}	public class Cheetah extends CanRun {} // DOES NOT COMPILE	public class Hyena {}	public interface HasFur extends Hyena {} // DOES NOT COMPILE
+	```
+- If a class inherits from two interfaces that have one or more method with same name, the rule is the same than in chapter 4 :
+	- if the return type is the same and the parameters too, there is no problem. Only one implementation will be provided.
+	- if the return type is the same and the parameters are different, theres is no problem. Two implementations will be provided.
+	- if the return type is different the compiler will stop you and the code cannot compile
+
+#### Interface variables
+
+1. Interface variables are assumed to be public, static, and final. Therefore, marking a variable as private or protected will trigger a compiler error, as will marking any variable as abstract.2. The value of an interface variable must be set when it is declared since it is marked as final.
+
+### Default Interface Methods
+
+- A default method within an interface defines an abstract method with a default implementation.
 - Rules for the new `default` keyword used for interfaces 
-	1. A default method may only be declared within an interface and not within a class or abstract class.
-	2. A default method must be marked with the default keyword. If a method is marked as default, it must provide a method body.
+	1. A default method may **only** be declared within an interface and **not** within a class or abstract class.
+	2. A default method **must** be marked with the default keyword. If a method is marked as default, it **must** provide a method body.
 	3. A default method is not assumed to be static, final, or abstract, as it may be used or overridden by a class that implements the interface.
 	4. Like all methods in an interface, a default method is assumed to be public and will not compile if marked as private or protected.
-- If a class implements two interfaces that have default methods with the same name and signature, the compiler will throw an error. There is an exception to this rule, though: if the subclass overrides the duplicate default methods, the code will compile without issue—the ambiguity about which version of the method to call has been removed.
+
+#### Default Methods and Multiple Inheritance
+
+- If a class implements two interfaces that have default methods with the same name and signature, the compiler will throw an error. There is an exception to this rule, though: if the subclass **overrides** the duplicate default methods, the code will compile without issue the ambiguity about which version of the method to call has been removed.
+
+#### Static Interface Methods
+
 - Here are the static interface method rules you need to be familiar with:
 	1. Like all methods in an interface, a static method is assumed to be public and will not compile if marked as private or protected.
 	2. To reference the static method, a reference to the name of the interface must be used.
-- A class that implements two interfaces containing static methods with the same signature will still compile at runtime. 
-- Summary of polymorphism rules 
-	1. The type of the object determines which properties exist within the object in memory.
-	2. The type of the reference to the object determines which methods and variables are accessible to the Java program.
+- A class that implements two interfaces containing static methods with the same signature will still compile at runtime because the calling of static methods must be prefixed with the name of the interface.
+
+### Understanding Polymorphism
+
+#### Polymorphism rules 
+	
+1. The type of the **object** determines which properties exist within the object in memory.
+2. The type of the **reference** to the object determines which methods and variables are accessible to the Java program.
+
+#### Casting objects
+
+- Casting rules :
+	1. Casting an object from a subclass to a superclass **doesn’t require** an explicit cast.	2. Casting an object from a superclass to a subclass **requires** an explicit cast. 	3. The compiler **will not allow** casts to unrelated types. 	4. Even when the code compiles without issue, an exception may be thrown at runtime if the object being cast is not actually an instance of that class.
+- Casting is not without its limitations. Even though two classes share a related hierarchy, that doesn’t mean an instance of one can automatically be cast to another. Here’s an example:	```java	public class Rodent { }	public class Capybara extends Rodent { 
+		public static void main(String[] args) {			Rodent rodent = new Rodent();			Capybara capybara = (Capybara)rodent; // Throws ClassCastException at runtime 
+		}	}
+	```
+	The thing to keep in mind in this example is the object that was created is not related to the `Capybara` class in any way.
+
+#### Virtual Methods
+
+- The powerful of the polymorphism is to determine which implementation will be used at **runtime**. It is determined by the instance of the object created and not the reference.
+- An example of this rule is to use interface or abstract class when you declare an object. One of the best example is this one :
+	
+	```java
+	// You change the implementation of listOfBirds without any impact
+	List<Bird> listOfBirds = new ArrayList<>();
+	// You cannot change the implementation
+	ArrayList<Bird> listOfBirds = new ArrayList<>();
+	```
+#### Polymorphism and Method Overriding
+
+1. An overridden method must be at least as accessible as the method it is overriding.
+2. A subclass cannot declare an overridden method with a new or broader exception than in the superclass, since the method may be accessed using a reference to the superclass.
+3. Overridden methods must use covariant return types for the same kinds of reasons as just discussed.
 
 ----------------
 - **SUMMARY p.334 (288)**
@@ -818,9 +888,9 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 
 	```java
 	public static void main(String[] args) { 
-		try {			hop();	} catch (Exception e) {		System.out.println(e); // 1
-		System.out.println(e.getMessage()); // 2
-		e.printStackTrace(); // 3		} 
+		try {			hop();		} catch (Exception e) {			System.out.println(e); // 1
+			System.out.println(e.getMessage()); // 2
+			e.printStackTrace(); // 3		} 
 	}	private static void hop() {		throw new RuntimeException("cannot hop");	}
 	```
 	This code results in the following output:
