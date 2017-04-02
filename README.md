@@ -3,8 +3,6 @@
 Ce document a pour but de regrouper les notes et les conseils concernant la certification Oracle Java 8 niveau OCA.  
 Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified Associate Java SE 8 Programmer I Study Guide**.
 
-**Le document est en cours d'élaboration, les chapitres 4, 5 et 6 ne sont pas encore terminés.**
-
 ## Sommaire
 
 1. [Conseils pour l'examen](#conseils-pour-lexamen)
