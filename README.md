@@ -381,12 +381,12 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	Lines 24 and 25 don't compile because `Bird` reference is not in the same package and is not a subclass of `Bird` so it doesn't compile. It is important to verify if we are in the same package of the reference we use or if this reference extends the class we want to use methods.
 - Summary of access modifiers :
 
-	| Can access | Private ? | Default ? | Protected ? | Public ? |
-	|:----------:|:---------:|:---------:|:-----------:|:--------:|
-	| Member in the same class | Yes | Yes | Yes | Yes |
-	| Member in another class in same package | No | Yes | Yes | Yes |
-	| Member in a superclass in a different package | No | No | Yes | Yes |
-	| Method/field in a non-superclass class in a different package | No | No | No | Yes |
+| Can access | Private ? | Default ? | Protected ? | Public ? |
+|:----------:|:---------:|:---------:|:-----------:|:--------:|
+| Member in the same class | Yes | Yes | Yes | Yes |
+| Member in another class in same package | No | Yes | Yes | Yes |
+| Member in a superclass in a different package | No | No | Yes | Yes |
+| Method/field in a non-superclass class in a different package | No | No | No | Yes |
 	
 ### Designing Static Methods and Fields
 
@@ -835,12 +835,12 @@ using the super keyword. In this manner, the keywords this and super allow you t
 	- `throws` only used for methods tells an exception might be thrown
 - Rules about exceptions :
 
-	|        Type       |                      How to recognize                      | Okay for program to catch? | Is program required to handle or declare? |
-	|:-----------------:|:----------------------------------------------------------:|:--------------------------:|:-----------------------------------------:|
-	| Runtime exception |                Subclass of RuntimeException                |             Yes            |                     No                    |
-	| Checked exception | Subclass of Exception but not subclass of RuntimeException |             Yes            |                    Yes                    |
-	|       Error       |                      Subclass of Error                     |             No             |                     No                    |
-	
+|        Type       |                      How to recognize                      | Okay for program to catch? | Is program required to handle or declare? |
+|:-----------------:|:----------------------------------------------------------:|:--------------------------:|:-----------------------------------------:|
+| Runtime exception |                Subclass of RuntimeException                |             Yes            |                     No                    |
+| Checked exception | Subclass of Exception but not subclass of RuntimeException |             Yes            |                    Yes                    |
+|       Error       |                      Subclass of Error                     |             No             |                     No                    |
+
 
 ### Using a try Statement
 
