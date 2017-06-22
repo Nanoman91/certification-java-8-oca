@@ -56,7 +56,7 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	- Each file can contain only one public class.
 	- The filename must match the class name, including case, and have a `.java` extension.
 - using `L` instead of `l` for long declaration is appreciated
-- **WARNING :** be careful with numbers declaration especially these one 
+- **WARNING :** be careful with numbers' declaration especially these one 
 	
 	```java
 	System.out.println(56); // 56 normal int
@@ -382,11 +382,11 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 - Summary of access modifiers :
 
 	| Can access | Private ? | Default ? | Protected ? | Public ? |
-	|:--------------------------------------------------------------:|:--------------------------:|:----------------------------------------------------:|:----------------------------:|:-------------------------:|
+	|:----------:|:---------:|:---------:|:-----------:|:--------:|
 	| Member in the same class | Yes | Yes | Yes | Yes |
 	| Member in another class in same package | No | Yes | Yes | Yes |
 	| Member in a superclass in a different package | No | No | Yes | Yes |
-	| Method/field in a non- superclass class in a different package | No | No | No | Yes |
+	| Method/field in a non-superclass class in a different package | No | No | No | Yes |
 	
 ### Designing Static Methods and Fields
 
@@ -528,7 +528,7 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 
 ### Extending a class
 
-- Private members are not accessible by others classes even by inheritance.
+- Private members are **not** accessible by others classes even by inheritance.
 
 ### Applying class access modifiers
 
@@ -598,10 +598,16 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 
 	```java
 	class Primate { 
-		public Primate() { System.out.println("Primate"); }	}	class Ape extends Primate { 
-		public Ape() { System.out.println("Ape"); }	}	public class Chimpanzee extends Ape { 
-		public static void main(String[] args) {			new Chimpanzee(); 
-		}	}
+		public Primate() { System.out.println("Primate"); }
+	}
+	class Ape extends Primate { 
+		public Ape() { System.out.println("Ape"); }
+	}
+	public class Chimpanzee extends Ape { 
+		public static void main(String[] args) {
+			new Chimpanzee(); 
+		}
+	}
 	```
 	This code will output :
 		
@@ -619,17 +625,22 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 
 #### Overriding/Overloading a method
 
-- When you override a method, you may reference the parent version of the methodusing the super keyword. In this manner, the keywords this and super allow you to select between the current and parent version of a method, respectively.
+- When you override a method, you may reference the parent version of the method
+using the super keyword. In this manner, the keywords this and super allow you to select between the current and parent version of a method, respectively.
 
 	```java
-	public class Canine {		public double getAverageWeight() { return 50; }	}	
+	public class Canine {
+		public double getAverageWeight() { return 50; }
+	}
+	
 	public class Wolf extends Canine { 
 		public double getAverageWeight() { 
 			return super.getAverageWeight()+20; 
 		}
 		public static void main(String[] args) { 
 			System.out.println(new Canine().getAverageWeight());  //50
-			System.out.println(new Wolf().getAverageWeight()); //70		} 
+			System.out.println(new Wolf().getAverageWeight()); //70
+		} 
 	}
 	```
 
@@ -657,15 +668,23 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 
 - Java doesn’t allow variables to be overridden but instead hidden.
 
-#### Hiding Variables- This creates two copies of the variable within an instance of the child class: one instance de ned for the parent reference and another de ned for the child reference. You can access to the parent variable with the keyword `super`-  If you’re referencing the variable from within the parent class, the variable de ned in the parent class is used. Alternatively, if you’re referencing the variable from within a child class, the variable de ned in the child class is used. Exemple : 
+#### Hiding Variables
+
+- This creates two copies of the variable within an instance of the child class: one instance de ned for the parent reference and another de ned for the child reference. You can access to the parent variable with the keyword `super`
+-  If you’re referencing the variable from within the parent class, the variable de ned in the parent class is used. Alternatively, if you’re referencing the variable from within a child class, the variable de ned in the child class is used. Exemple : 
 	
 	```java
 	public class Animal { 
-		public int length = 2;	}	public class Jellyfish extends Animal { 
-		public int length = 5;		public static void main(String[] args) {			Jellyfish jellyfish = new Jellyfish(); 
+		public int length = 2;
+	}
+	public class Jellyfish extends Animal { 
+		public int length = 5;
+		public static void main(String[] args) {
+			Jellyfish jellyfish = new Jellyfish(); 
 			Animal animal = new Jellyfish(); 
 			System.out.println(jellyfish.length); // print 5 because it is a JellyFish 
-			System.out.println(animal.length); // print 2 because it is an animal		} 
+			System.out.println(animal.length); // print 2 because it is an animal
+		} 
 	}
 	```
 
@@ -700,7 +719,8 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 
 #### Inheriting an interface
 
-1. An interface that extends another interface, as well as an abstract class that implements an interface, inherits all of the abstract methods as its own abstract methods.2. The first concrete class that implements an interface, or extends an abstract class that implements an interface, must provide an implementation for all of the inherited abstract methods.
+1. An interface that extends another interface, as well as an abstract class that implements an interface, inherits all of the abstract methods as its own abstract methods.
+2. The first concrete class that implements an interface, or extends an abstract class that implements an interface, must provide an implementation for all of the inherited abstract methods.
 3. An interface may extend multiple interfaces.
 
 #### Classes, Interfaces, and Keywords
@@ -708,7 +728,10 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 - Be careful in the exam, examinators will try to trap you with simple keywords
 
 	```java
-	public interface CanRun {}	public class Cheetah extends CanRun {} // DOES NOT COMPILE	public class Hyena {}	public interface HasFur extends Hyena {} // DOES NOT COMPILE
+	public interface CanRun {}
+	public class Cheetah extends CanRun {} // DOES NOT COMPILE
+	public class Hyena {}
+	public interface HasFur extends Hyena {} // DOES NOT COMPILE
 	```
 - If a class inherits from two interfaces that have one or more method with same name, the rule is the same than in chapter 4 :
 	- if the return type is the same and the parameters too, there is no problem. Only one implementation will be provided.
@@ -717,7 +740,8 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 
 #### Interface variables
 
-1. Interface variables are assumed to be public, static, and final. Therefore, marking a variable as private or protected will trigger a compiler error, as will marking any variable as abstract.2. The value of an interface variable must be set when it is declared since it is marked as final.
+1. Interface variables are assumed to be public, static, and final. Therefore, marking a variable as private or protected will trigger a compiler error, as will marking any variable as abstract.
+2. The value of an interface variable must be set when it is declared since it is marked as final.
 
 ### Default Interface Methods
 
@@ -749,10 +773,20 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 #### Casting objects
 
 - Casting rules :
-	1. Casting an object from a subclass to a superclass **doesn’t require** an explicit cast.	2. Casting an object from a superclass to a subclass **requires** an explicit cast. 	3. The compiler **will not allow** casts to unrelated types. 	4. Even when the code compiles without issue, an exception may be thrown at runtime if the object being cast is not actually an instance of that class.
-- Casting is not without its limitations. Even though two classes share a related hierarchy, that doesn’t mean an instance of one can automatically be cast to another. Here’s an example:	```java	public class Rodent { }	public class Capybara extends Rodent { 
-		public static void main(String[] args) {			Rodent rodent = new Rodent();			Capybara capybara = (Capybara)rodent; // Throws ClassCastException at runtime 
-		}	}
+	1. Casting an object from a subclass to a superclass **doesn’t require** an explicit cast.
+	2. Casting an object from a superclass to a subclass **requires** an explicit cast.
+ 	3. The compiler **will not allow** casts to unrelated types.
+ 	4. Even when the code compiles without issue, an exception may be thrown at runtime if the object being cast is not actually an instance of that class.
+- Casting is not without its limitations. Even though two classes share a related hierarchy, that doesn’t mean an instance of one can automatically be cast to another. Here’s an example:
+
+	```java
+	public class Rodent { }
+	public class Capybara extends Rodent { 
+		public static void main(String[] args) {
+			Rodent rodent = new Rodent();
+			Capybara capybara = (Capybara)rodent; // Throws ClassCastException at runtime 
+		}
+	}
 	```
 	The thing to keep in mind in this example is the object that was created is not related to the `Capybara` class in any way.
 
@@ -790,7 +824,8 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 
 	```java
 	void fall() throws Exception { 
-		throw new Exception();	}
+		throw new Exception();
+	}
 	```
 
 ### Throwing an Exception
@@ -828,23 +863,44 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	```
 - There is one exception to “the finally block always runs after the catch block” rule : the static method `System.exit(0)` (0 is an example, the signature has an `Integer` as parameter). It tells the program to stop right now and the `finally` block is not executed.
 
-### Catching Various Types of Exceptions- Be careful when there are more than one exception thrown. The order of catch blocks is important. The more specific exception **must** appear in first.
+### Catching Various Types of Exceptions
+
+- Be careful when there are more than one exception thrown. The order of catch blocks is important. The more specific exception **must** appear in first.
 	
 	```java
 	public void visitSnakes() { 
-		try {			seeAnimal();		} catch (Exception e) {			System.out.print("Exception");		} catch (RuneTimeException e) {// DOES NOT COMPILE			System.out.print("Runtime exception"); 
-		}	}
+		try {
+			seeAnimal();
+		} catch (Exception e) {
+			System.out.print("Exception");
+		} catch (RuneTimeException e) {// DOES NOT COMPILE
+			System.out.print("Runtime exception"); 
+		}
+	}
 	```
 
 ### Recognizing Common Exception Types
 
 #### Runtime Exceptions
 
-- **ArithmeticException** Thrown by the JVM when code attempts to divide by zero- **ArrayIndexOutOfBoundsException** Thrown by the JVM when code uses an illegal index to access an array- **ClassCastException** Thrown by the JVM when an attempt is made to cast an exception to a subclass of which it is not an instance- **IllegalArgumentException** Thrown by the programmer to indicate that a method has been passed an illegal or inappropriate argument- **NullPointerException** Thrown by the JVM when there is a null reference where an object is required- **NumberFormatException** Thrown by the programmer when an attempt is made to convert a string to a numeric type but the string doesn’t have an appropriate format
+- **ArithmeticException** Thrown by the JVM when code attempts to divide by zero
+- **ArrayIndexOutOfBoundsException** Thrown by the JVM when code uses an illegal index to access an array
+- **ClassCastException** Thrown by the JVM when an attempt is made to cast an exception to a subclass of which it is not an instance
+- **IllegalArgumentException** Thrown by the programmer to indicate that a method has been passed an illegal or inappropriate argument
+- **NullPointerException** Thrown by the JVM when there is a null reference where an object is required
+- **NumberFormatException** Thrown by the programmer when an attempt is made to convert a string to a numeric type but the string doesn’t have an appropriate format
 
 #### Checked Exceptions
 
-- **FileNotFoundException** Thrown programmatically when code tries to reference a file that does not exist- **IOException** Thrown programmatically when there’s a problem reading or writing a  le#### Errors- **ExceptionInInitializerError** Thrown by the JVM when a static initializer throws an exception and doesn’t handle it- **StackOverflowError** Thrown by the JVM when a method calls itself too many times (this is called in nite recursion because the method typically calls itself without end)- **NoClassDefFoundError** Thrown by the JVM when a class that the code uses is available at compile time but not runtime
+- **FileNotFoundException** Thrown programmatically when code tries to reference a file that does not exist
+- **IOException** Thrown programmatically when there’s a problem reading or writing a file
+
+#### Errors
+
+- **ExceptionInInitializerError** Thrown by the JVM when a static initializer throws an exception and doesn’t handle it
+- **StackOverflowError** Thrown by the JVM when a method calls itself too many times (this is called infinite recursion because the method typically calls itself without end)
+- **NoClassDefFoundError** Thrown by the JVM when a class that the code uses is available at compile time but not runtime
+
 ### Calling Methods That Throw Exceptions
 
 - If a method throws an `Exception` that is not a runtime one you have to treat it. You can throws it again or uses a `try/catch` bloc.
@@ -852,23 +908,31 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 	```java
 	class NoMoreCarrotsException extends Exception {
 	} 
-	public class Bunny {		public static void main(String[] args) { 
-			eatCarrot();// DOES NOT COMPILE because the exception is not treated		}		private static void eatCarrot() throws NoMoreCarrotsException { }	}
+	public class Bunny {
+		public static void main(String[] args) { 
+			eatCarrot();// DOES NOT COMPILE because the exception is not treated
+		}
+		private static void eatCarrot() throws NoMoreCarrotsException { }
+	}
 	```
 	Solution 1 :
 	
 	```java
 	// declare exception
 	public static void main(String[] args) throws NoMoreCarrotsException { 
-		eatCarrot();	}
+		eatCarrot();
+	}
 	```
 	Solution 2 :
 	
 	```java
-	public static void main(String[] args) {		try { 
-			eatCarrot();		} catch (NoMoreCarrotsException e ) {
+	public static void main(String[] args) {
+		try { 
+			eatCarrot();
+		} catch (NoMoreCarrotsException e ) {
 			// handle exception
-			System.out.print("sad rabbit");		} 
+			System.out.print("sad rabbit");
+		} 
 	}
 	```
 
@@ -886,15 +950,25 @@ Ces différents éléments sont tirés du livre officiel **OCA: Oracle Certified
 
 	```java
 	public static void main(String[] args) { 
-		try {			hop();		} catch (Exception e) {			System.out.println(e); // 1
+		try {
+			hop();
+		} catch (Exception e) {
+			System.out.println(e); // 1
 			System.out.println(e.getMessage()); // 2
-			e.printStackTrace(); // 3		} 
-	}	private static void hop() {		throw new RuntimeException("cannot hop");	}
+			e.printStackTrace(); // 3
+		} 
+	}
+	private static void hop() {
+		throw new RuntimeException("cannot hop");
+	}
 	```
 	This code results in the following output:
 	
-	```java	java.lang.RuntimeException: cannot hop //1
-	cannot hop //2	java.lang.RuntimeException: cannot hop //3		at trycatch.Handling.hop(Handling.java:15) 
+	```java
+	java.lang.RuntimeException: cannot hop //1
+	cannot hop //2
+	java.lang.RuntimeException: cannot hop //3
+		at trycatch.Handling.hop(Handling.java:15) 
 		at 	trycatch.Handling.main(Handling.java:7)
 	```
 
